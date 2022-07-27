@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.github.hvs.someguyjumpingaround.ecs.animation.AnimationSystem
 import com.github.hvs.someguyjumpingaround.ecs.camera.CameraSystem
+import com.github.hvs.someguyjumpingaround.ecs.collision.CollisionDespawnSystem
 import com.github.hvs.someguyjumpingaround.ecs.collision.CollisionSpawnSystem
 import com.github.hvs.someguyjumpingaround.ecs.control.PlayerControlSystem
 import com.github.hvs.someguyjumpingaround.ecs.debug.DebugSystem
@@ -81,6 +82,7 @@ class GameScreen: KtxScreen {
 
             system<EntitySpawnSystem>()
             system<CollisionSpawnSystem>()
+            system<CollisionDespawnSystem>()
             system<PhysicsSystem>()
             system<AnimationSystem>()
             system<MoveSystem>()

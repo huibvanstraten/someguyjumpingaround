@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
 import com.github.hvs.someguyjumpingaround.SomeGuyJumpingAround.Companion.UNIT_SCALE
 import com.github.hvs.someguyjumpingaround.ecs.animation.AnimationComponent
+import com.github.hvs.someguyjumpingaround.ecs.collision.CollisionComponent
 import com.github.hvs.someguyjumpingaround.ecs.image.ImageComponent
 import com.github.hvs.someguyjumpingaround.ecs.move.MoveComponent
 import com.github.hvs.someguyjumpingaround.ecs.physics.PhysicsComponent.Companion.physicsComponentFromImage
@@ -87,6 +88,9 @@ class EntitySpawnSystem(
                     }
 
                     if (entityConfig.bodyType != BodyDef.BodyType.StaticBody) {
+                        //such entities will create/remove collision objects
+                        add<CollisionComponent>()
+
                         //collision box
                         val collisionHeight = height * 0.4f
                         val collisionOffset = vec2().apply { set(entityConfig.physicsOffset) }

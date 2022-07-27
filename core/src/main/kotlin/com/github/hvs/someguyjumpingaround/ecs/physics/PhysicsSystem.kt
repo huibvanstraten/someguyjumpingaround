@@ -8,7 +8,9 @@ import com.badlogic.gdx.physics.box2d.ContactListener
 import com.badlogic.gdx.physics.box2d.Fixture
 import com.badlogic.gdx.physics.box2d.Manifold
 import com.badlogic.gdx.physics.box2d.World
+import com.github.hvs.someguyjumpingaround.ecs.collision.CollisionComponent
 import com.github.hvs.someguyjumpingaround.ecs.image.ImageComponent
+import com.github.hvs.someguyjumpingaround.ecs.tiled.TiledComponent
 import com.github.quillraven.fleks.AllOf
 import com.github.quillraven.fleks.ComponentMapper
 import com.github.quillraven.fleks.Entity
@@ -22,7 +24,9 @@ import ktx.math.component2
 class PhysicsSystem(
     private val physicsWorld: World,
     private val imageComponents: ComponentMapper<ImageComponent>,
-    private val physicsComponents: ComponentMapper<PhysicsComponent>
+    private val physicsComponents: ComponentMapper<PhysicsComponent>,
+    private val tiledComponents: ComponentMapper<TiledComponent>,
+    private val collisionComponents: ComponentMapper<CollisionComponent>
 ): ContactListener, IteratingSystem(interval = Fixed(1 / 60f)) {  //Link to "Fix your timestep" article: https://gafferongames.com/post/fix_your_timestep/
 
     init {
@@ -70,10 +74,38 @@ class PhysicsSystem(
         }
     }
 
-    override fun beginContact(contact: Contact?) {
+    override fun beginContact(contact: Contact) {
+        val entityA = contact.fixtureA.entity
+        val entityB = contact.fixtureB.entity
+        val isEntityATiledCollisionSensor = entityA in tiledComponents && contact.fixtureA.isSensor
+        val isEntityBTiledCollisionSensor = entityB in tiledComponents && contact.fixtureB.isSensor
+        val isEntityATiledCollisionFixture = entityA in collisionComponents && !contact.fixtureA.isSensor
+        val isEntityBTiledCollisionFixture = entityB in collisionComponents && !contact.fixtureB.isSensor
+
+        when {
+             isEntityATiledCollisionSensor && isEntityBTiledCollisionFixture -> {
+                tiledComponents[entityA].nearbyEntities += entityB
+            }
+            isEntityBTiledCollisionSensor && isEntityATiledCollisionFixture -> {
+                tiledComponents[entityB].nearbyEntities += entityA
+            }
+        }
     }
 
-    override fun endContact(contact: Contact?) {
+    override fun endContact(contact: Contact) {
+        val entityA = contact.fixtureA.entity
+        val entityB = contact.fixtureB.entity
+        val isEntityATiledCollisionSensor = entityA in tiledComponents && contact.fixtureA.isSensor
+        val isEntityBTiledCollisionSensor = entityB in tiledComponents && contact.fixtureB.isSensor
+
+        when {
+            isEntityATiledCollisionSensor && !contact.fixtureB.isSensor -> {
+                tiledComponents[entityA].nearbyEntities -= entityB
+            }
+            isEntityBTiledCollisionSensor && !contact.fixtureA.isSensor -> {
+                tiledComponents[entityB].nearbyEntities -= entityA
+            }
+        }
     }
 
 
@@ -87,6 +119,10 @@ class PhysicsSystem(
 
     private fun Fixture.isStaticBody() = this.body.type == BodyDef.BodyType.StaticBody
     private fun Fixture.isDynamicBody() = this.body.type == BodyDef.BodyType.DynamicBody
+
+    private val Fixture.entity: Entity
+    get() = this.body.userData as Entity
+
 
     companion object {
         private val log = logger<PhysicsSystem>()
