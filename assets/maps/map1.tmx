@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.0" orientation="orthogonal" renderorder="right-down" width="32" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="9">
+ <tileset firstgid="1" source="map.tsx"/>
+ <tileset firstgid="122" name="entities" tilewidth="48" tileheight="48" tilecount="3" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="48" height="48" source="images/player.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="32" source="images/slime.png"/>
+  </tile>
+  <tile id="5" class="Chest">
+   <properties>
+    <property name="Type" value="Chest"/>
+   </properties>
+   <image width="16" height="16" source="images/chest.png"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="ground" width="32" height="18">
+  <data encoding="base64" compression="zlib">
+   eJzjYWBg4BnFQwL7DwI30NOvlPp3sIXXYHMPuW4j1R/EqKdV2BBrLjXS20DF1UCH3UDF7WDAA+03Wtg/0H6iJwYAX2If+g==
+  </data>
+ </layer>
+ <layer id="2" name="background" width="32" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgwUkA3E2kWpNaOmQUUBVQEq84gPpQGyBA4tTwXwYwJW25PDowSdHLUCs/bTKG0PF/7QCEiTIDaXyCd2t1Mqvo2DwAwAsygZd
+  </data>
+ </layer>
+ <layer id="3" name="foreground" width="32" height="18">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFMMAKxAkD7YhRQHUwGq+jYBQMHTCaX0cBvQAAhcYBMA==
+  </data>
+ </layer>
+ <objectgroup id="4" name="entities">
+  <object id="1" name="Player" class="Player" gid="122" x="36" y="261" width="48" height="48">
+   <properties>
+    <property name="Type" value="Player"/>
+   </properties>
+  </object>
+  <object id="2" name="Slime" class="Slime" gid="123" x="88" y="227" width="32" height="32">
+   <properties>
+    <property name="Type" value="Slime"/>
+   </properties>
+  </object>
+  <object id="3" name="Slime" class="Slime" gid="123" x="219" y="146.5" width="32" height="32">
+   <properties>
+    <property name="Type" value="Slime"/>
+   </properties>
+  </object>
+  <object id="7" name="Chest" gid="127" x="121.5" y="192" width="16" height="16"/>
+  <object id="8" name="Chest" gid="127" x="145" y="241" width="16" height="16"/>
+ </objectgroup>
+</map>

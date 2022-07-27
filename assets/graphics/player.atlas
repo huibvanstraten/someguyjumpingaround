@@ -1,0 +1,146 @@
+
+player.png
+size: 1024, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+attack
+  rotate: false
+  xy: 2, 2
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: 4
+attack
+  rotate: false
+  xy: 134, 2
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: 1
+attack
+  rotate: false
+  xy: 200, 2
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: 3
+attack
+  rotate: false
+  xy: 266, 2
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: 0
+attack
+  rotate: false
+  xy: 332, 2
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: 2
+idle
+  rotate: false
+  xy: 602, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+idle
+  rotate: false
+  xy: 840, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+jump
+  rotate: false
+  xy: 704, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+lick
+  rotate: false
+  xy: 398, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+lick
+  rotate: false
+  xy: 466, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+lick
+  rotate: false
+  xy: 500, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+lick
+  rotate: false
+  xy: 534, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+lick
+  rotate: false
+  xy: 636, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+lick
+  rotate: false
+  xy: 738, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+lick
+  rotate: false
+  xy: 772, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+run
+  rotate: false
+  xy: 432, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+run
+  rotate: false
+  xy: 568, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+run
+  rotate: false
+  xy: 806, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+shock
+  rotate: false
+  xy: 68, 2
+  size: 64, 48
+  orig: 64, 48
+  offset: 0, 0
+  index: 1
+shock
+  rotate: false
+  xy: 670, 18
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
