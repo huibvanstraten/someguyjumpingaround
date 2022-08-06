@@ -27,7 +27,8 @@ class PhysicsSystem(
     private val physicsComponents: ComponentMapper<PhysicsComponent>,
     private val tiledComponents: ComponentMapper<TiledComponent>,
     private val collisionComponents: ComponentMapper<CollisionComponent>
-): ContactListener, IteratingSystem(interval = Fixed(1 / 60f)) {  //Link to "Fix your timestep" article: https://gafferongames.com/post/fix_your_timestep/
+) : ContactListener,
+    IteratingSystem(interval = Fixed(1 / 60f)) {  //Link to "Fix your timestep" article: https://gafferongames.com/post/fix_your_timestep/
 
     init {
         physicsWorld.setContactListener(this)
@@ -83,7 +84,7 @@ class PhysicsSystem(
         val isEntityBTiledCollisionFixture = entityB in collisionComponents && !contact.fixtureB.isSensor
 
         when {
-             isEntityATiledCollisionSensor && isEntityBTiledCollisionFixture -> {
+            isEntityATiledCollisionSensor && isEntityBTiledCollisionFixture -> {
                 tiledComponents[entityA].nearbyEntities += entityB
             }
             isEntityBTiledCollisionSensor && isEntityATiledCollisionFixture -> {
@@ -109,7 +110,6 @@ class PhysicsSystem(
     }
 
 
-
     override fun preSolve(contact: Contact, oldManifold: Manifold) {
         contact.isEnabled = (contact.fixtureA.isStaticBody() && contact.fixtureB.isDynamicBody()) ||
                 (contact.fixtureA.isDynamicBody() && contact.fixtureB.isStaticBody())
@@ -120,11 +120,10 @@ class PhysicsSystem(
     private fun Fixture.isStaticBody() = this.body.type == BodyDef.BodyType.StaticBody
     private fun Fixture.isDynamicBody() = this.body.type == BodyDef.BodyType.DynamicBody
 
-    private val Fixture.entity: Entity
-    get() = this.body.userData as Entity
-
-
     companion object {
         private val log = logger<PhysicsSystem>()
+
+        val Fixture.entity: Entity
+            get() = this.body.userData as Entity
     }
 }

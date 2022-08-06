@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
 import com.github.hvs.someguyjumpingaround.SomeGuyJumpingAround.Companion.UNIT_SCALE
+import com.github.hvs.someguyjumpingaround.actor.FlipImage
 import com.github.hvs.someguyjumpingaround.ecs.animation.AnimationComponent
 import com.github.hvs.someguyjumpingaround.ecs.collision.CollisionComponent
 import com.github.hvs.someguyjumpingaround.ecs.image.ImageComponent
@@ -66,7 +67,7 @@ class EntitySpawnSystem(
 
             world.entity {
                 val imageComp = add<ImageComponent> {
-                    image = Image().apply {
+                    image = FlipImage().apply {
                         setPosition(location.x, location.y)
                         setScaling(Scaling.fill)
                         setSize(entitySize.x, entitySize.y)
@@ -78,13 +79,16 @@ class EntitySpawnSystem(
                 }
 
                 physicsComponentFromImage(physicsWorld, imageComp.image, entityConfig.bodyType)
-                { _, w, h ->
+                { physicsComp, w, h ->
                     val width = w * entityConfig.physicsScaling.x
                     val height = h * entityConfig.physicsScaling.y
+                    physicsComp.offset.set(entityConfig.physicsOffset)
+                    physicsComp.size.set(width, height)
 
                     // hit box
                     box(width, height, entityConfig.physicsOffset) {
                         isSensor = entityConfig.bodyType != BodyDef.BodyType.StaticBody
+                        userData = HIT_BOX_SENSOR
                     }
 
                     if (entityConfig.bodyType != BodyDef.BodyType.StaticBody) {
@@ -144,5 +148,9 @@ class EntitySpawnSystem(
             x = regions.first().originalWidth * UNIT_SCALE,
             y = regions.first().originalHeight * UNIT_SCALE
         )
+    }
+
+    companion object {
+        const val HIT_BOX_SENSOR = "hitBox"
     }
 }
